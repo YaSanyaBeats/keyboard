@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <game.h>
 #include <iostream>
 #include <locale>
 #include <menu.h>
@@ -58,7 +59,8 @@ void initMenu(sf::RenderWindow& window)
                 if (event.mouseButton.button == Mouse::Left) {
                     if (boundsButton1.contains(
                                 event.mouseButton.x, event.mouseButton.y)) {
-                        cout << "Start game";
+                        window.clear();
+                        startGame(window);
                     }
                     if (boundsButton2.contains(
                                 event.mouseButton.x, event.mouseButton.y)) {
