@@ -8,6 +8,12 @@
 using namespace std;
 using namespace sf;
 
+int getSymbolWidth(Text text)
+{
+    cout << text.findCharacterPos(1).x << endl;
+    return text.findCharacterPos(2).x - text.findCharacterPos(1).x;
+}
+
 void startGame(sf::RenderWindow& window)
 {
     Texture keyboardTexture;
@@ -36,8 +42,8 @@ void startGame(sf::RenderWindow& window)
     RectangleShape display(Vector2f(1920, 50));
     display.setPosition(Vector2f(0, 300));
 
-    RectangleShape currentSymbol(Vector2f(30, 50));
-    currentSymbol.setPosition(Vector2f(947, 300));
+    RectangleShape currentSymbol(Vector2f(23, 50));
+    currentSymbol.setPosition(Vector2f(949, 300));
     currentSymbol.setFillColor(Color(250, 150, 100, 160));
 
     while (window.isOpen()) {
@@ -50,8 +56,12 @@ void startGame(sf::RenderWindow& window)
                 if (event.text.unicode < 128) {
                     if (static_cast<char>(event.text.unicode) == levelStr[0]) {
                         levelStr.erase(levelStr.begin());
+                        currentSymbol.setSize(
+                                Vector2f(getSymbolWidth(symbols), 50));
+                        currentSymbol.setFillColor(Color(250, 150, 100, 160));
+
                     } else {
-                        cout << "FAIL!!" << endl;
+                        currentSymbol.setFillColor(Color(240, 50, 50, 160));
                     }
                 }
             }
