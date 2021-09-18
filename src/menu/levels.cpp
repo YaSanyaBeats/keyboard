@@ -7,13 +7,6 @@
 using namespace std;
 using namespace sf;
 
-struct levelButton {
-    Vector2f position;
-    string text;
-    string levelStr;
-    bool active;
-};
-
 vector<levelButton> initButtons()
 {
     vector<levelButton> buttons;

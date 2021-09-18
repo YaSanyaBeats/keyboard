@@ -8,14 +8,6 @@
 using namespace std;
 using namespace sf;
 
-struct button {
-    int number;
-    Vector2f position;
-    string folder;
-    string letter;
-    bool active;
-};
-
 int getSymbolWidth(Text text)
 {
     return text.findCharacterPos(2).x - text.findCharacterPos(1).x;
@@ -33,7 +25,6 @@ vector<button> getButtons()
         currentButton.number = i;
 
         currentButton.letter = letters[i - 1];
-        cout << "1";
         if (i <= 10) {
             currentButton.position = Vector2f(i * 70 + 600, 700);
         } else if (i <= 19) {
