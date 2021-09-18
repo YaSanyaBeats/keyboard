@@ -88,7 +88,7 @@ void startGame(sf::RenderWindow& window)
     symbols.setCharacterSize(40);
     symbols.setFillColor(Color::Black);
 
-    string levelStr = "good luck and have a nice day!";
+    string levelStr = "good";
     symbols.setString(levelStr);
     symbols.setPosition(950, 295);
 
@@ -99,9 +99,35 @@ void startGame(sf::RenderWindow& window)
     currentSymbol.setPosition(Vector2f(949, 300));
     currentSymbol.setFillColor(Color(250, 150, 100, 160));
 
+    RectangleShape stats(Vector2f(1000, 600));
+    stats.setPosition(Vector2f(460, 240));
+    stats.setFillColor(Color(200, 200, 200));
+
+    Text congratulation;
+    congratulation.setFont(font);
+    congratulation.setCharacterSize(60);
+    congratulation.setFillColor(Color::Black);
+    congratulation.setString("Congratulation!!! Level complete");
+    congratulation.setPosition(Vector2f(510, 300));
+
+    RectangleShape backButton(Vector2f(500, 100));
+    backButton.setPosition(Vector2f(710, 530));
+    backButton.setFillColor(Color(244, 202, 181));
+
+    Text backButtonText;
+    backButtonText.setFont(font);
+    backButtonText.setCharacterSize(50);
+    backButtonText.setFillColor(Color::Black);
+    backButtonText.setString("back to menu");
+    backButtonText.setPosition(Vector2f(800, 550));
+
     int activeButtonId = 0;
+    bool gameOver = false;
 
     while (window.isOpen()) {
+        if (gameOver) {
+            break;
+        }
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
@@ -119,19 +145,44 @@ void startGame(sf::RenderWindow& window)
                         levelStr.erase(levelStr.begin());
                         currentSymbol.setSize(
                                 Vector2f(getSymbolWidth(symbols), 50));
-                        currentSymbol.setFillColor(Color(250, 150, 100, 160));
+                        currentSymbol.setFillColor(Color(244, 136, 181));
 
                     } else {
-                        currentSymbol.setFillColor(Color(240, 50, 50, 160));
+                        currentSymbol.setFillColor(Color(244, 202, 181));
+                    }
+                }
+            }
+            if (event.type == sf::Event::MouseMoved) {
+                FloatRect backButtonBounds = backButton.getGlobalBounds();
+                if (backButtonBounds.contains(
+                            event.mouseMove.x, event.mouseMove.y)) {
+                    backButton.setFillColor(Color(250, 150, 100));
+                } else {
+                    backButton.setFillColor(Color(244, 136, 181));
+                }
+            }
+            if (event.type == Event::MouseButtonPressed) {
+                if (event.mouseButton.button == Mouse::Left) {
+                    FloatRect backButtonBounds = backButton.getGlobalBounds();
+                    if (backButtonBounds.contains(
+                                event.mouseButton.x, event.mouseButton.y)) {
+                        gameOver = true;
                     }
                 }
             }
         }
+
         window.draw(display);
         window.draw(currentSymbol);
         drawButtons(window, buttons);
         symbols.setString(levelStr);
         window.draw(symbols);
+        if (levelStr.size() == 0) {
+            window.draw(stats);
+            window.draw(congratulation);
+            window.draw(backButton);
+            window.draw(backButtonText);
+        }
 
         window.display();
         sleep(milliseconds(1000 / 60));
