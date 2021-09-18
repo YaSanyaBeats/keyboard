@@ -27,10 +27,13 @@ vector<button> getButtons()
             = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d",
                "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"};
     vector<button> buttons;
+
     for (int i = 1; i < 27; i++) {
         button currentButton;
         currentButton.number = i;
+
         currentButton.letter = letters[i - 1];
+        cout << "1";
         if (i <= 10) {
             currentButton.position = Vector2f(i * 70 + 600, 700);
         } else if (i <= 19) {
@@ -38,11 +41,13 @@ vector<button> getButtons()
         } else {
             currentButton.position = Vector2f((i - 17.5) * 70 + 600, 840);
         }
+
         string fold = "source/keys/" + to_string(i) + ".png";
         currentButton.folder = fold;
         currentButton.active = false;
         buttons.push_back(currentButton);
     }
+
     return buttons;
 }
 
@@ -74,7 +79,7 @@ int getActiveButtonId(unsigned int unicode, vector<button> buttons)
     return -1;
 }
 
-void startGame(sf::RenderWindow& window)
+void startGame(sf::RenderWindow& window, string levelStr)
 {
     Font font;
     if (!font.loadFromFile("source/OpenSans-Regular.ttf")) {
@@ -88,7 +93,6 @@ void startGame(sf::RenderWindow& window)
     symbols.setCharacterSize(40);
     symbols.setFillColor(Color::Black);
 
-    string levelStr = "good";
     symbols.setString(levelStr);
     symbols.setPosition(950, 295);
 
@@ -126,6 +130,7 @@ void startGame(sf::RenderWindow& window)
 
     while (window.isOpen()) {
         if (gameOver) {
+            gameOver = false;
             break;
         }
         sf::Event event;

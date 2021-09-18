@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include <game.h>
 #include <iostream>
+#include <levels.h>
 #include <locale>
 #include <menu.h>
 
@@ -60,7 +60,7 @@ void initMenu(sf::RenderWindow& window)
                     if (boundsButton1.contains(
                                 event.mouseButton.x, event.mouseButton.y)) {
                         window.clear();
-                        startGame(window);
+                        openLevels(window);
                     }
                     if (boundsButton2.contains(
                                 event.mouseButton.x, event.mouseButton.y)) {
