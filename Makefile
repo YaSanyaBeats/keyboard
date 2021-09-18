@@ -31,4 +31,18 @@ $(OBJ_KEYBOARD)/game.o: $(SRC_KEYBOARD)/game.cpp
 $(OBJ_MENU)/levels.o: $(SRC_MENU)/levels.cpp
 	$(CXX) $(CPPFLAGS) -c -o $(OBJ_MENU)/levels.o $(SRC_MENU)/levels.cpp -DSFML_STATIC $(INCLUDE) -L $(SFML_PATH) $(SFML_LIBS)
 
--include keyboard.d menu.d game.d levels.d
+$(OBJ_MENU)/menu.a: $(OBJ_MENU)/levels.o $(OBJ_MENU)/menu.o
+		ar rcs $@ $^
+
+$(OBJ_KEYBOARD)/keyboard.a: $(OBJ_KEYBOARD)/keyboard.o $(OBJ_KEYBOARD)/game.o $(OBJ_MENU)/levels.o $(OBJ_MENU)/menu.o
+		ar rcs $@ $^
+
+test: bin/test.exe
+
+bin/test.exe: $(OBJ_MENU)/menu.a $(OBJ_KEYBOARD)/keyboard.a obj/test/test.o
+	$(CXX) $(INCLUDE) -Wall -Werror -o bin/test obj/test/test.o $(OBJ_MENU)/menu.a $(OBJ_KEYBOARD)/keyboard.a -DSFML_STATIC $(INCLUDE) -L $(SFML_PATH) $(SFML_LIBS)
+
+obj/test/test.o: test/test.cpp 
+	$(CXX) $(INCLUDE) -I thirdparty/catch $(CPPFLAGS) -c -o obj/test/test.o test/test.cpp -DSFML_STATIC $(INCLUDE) -L $(SFML_PATH) $(SFML_LIBS)
+
+-include keyboard.d menu.d game.d levels.d test.d
