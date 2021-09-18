@@ -24,7 +24,7 @@ TEST_CASE("GAME", "")
 {
     SECTION("get symbol width")
     {
-        /*sf::Font font;
+        sf::Font font;
         font.loadFromFile("source/OpenSans-Regular.ttf");
 
         sf::Text text;
@@ -34,7 +34,7 @@ TEST_CASE("GAME", "")
         text.setString("test string");
         CHECK(getSymbolWidth(text) == 28);
 
-        text.setString("123");
+        /*text.setString("123");
         CHECK(getSymbolWidth(text) == 27);
 
         text.setString("iij");
