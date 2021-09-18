@@ -22,31 +22,6 @@ TEST_CASE("LEVELS", "")
 
 TEST_CASE("GAME", "")
 {
-    SECTION("get symbol width")
-    {
-        sf::Font font;
-        font.loadFromFile("source/OpenSans-Regular.ttf");
-
-        sf::Text text;
-        text.setFont(font);
-        text.setCharacterSize(48);
-
-        text.setString("test string");
-        CHECK(getSymbolWidth(text) == 28);
-
-        /*text.setString("123");
-        CHECK(getSymbolWidth(text) == 27);
-
-        text.setString("iij");
-        CHECK(getSymbolWidth(text) == 12);
-
-        text.setString("a");
-        CHECK(getSymbolWidth(text) == 0);
-
-        text.setString("");
-        CHECK(getSymbolWidth(text) == 0);
-        system("pause");*/
-    }
     SECTION("get buttons")
     {
         std::vector<button> buttons = getButtons();
