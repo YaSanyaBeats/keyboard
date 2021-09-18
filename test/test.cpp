@@ -45,6 +45,7 @@ TEST_CASE("GAME", "")
 
         text.setString("");
         CHECK(getSymbolWidth(text) == 0);
+        system("pause");
     }
     SECTION("get buttons")
     {
